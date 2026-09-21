@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Patch files handed to iQOO Office Kit (or any other share target). -->
+    <cache-path name="patchcam_outbox" path="patchcam_outbox/" />
+</paths>

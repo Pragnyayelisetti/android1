@@ -1,0 +1,1 @@
+# PatchCam keeps default Android/Compose rules; no custom shrinking rules required.\n

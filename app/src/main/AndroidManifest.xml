@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-feature android:name="android.hardware.camera.any" android:required="false" />
+
+    <!--
+         Lets PatchCam check whether the Office Kit app is installed
+         (PackageManager.getPackageInfo on a specific package needs an
+         explicit <queries> entry on Android 11+) so it can open Office
+         Kit directly instead of a generic share sheet.
+    -->
+    <queries>
+        <package android:name="com.vivo.officekit" />
+        <package android:name="com.vivo.oflinkservice" />
+        <package android:name="com.iqoo.officekit" />
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".PatchCamApplication"
+        android:allowBackup="true"
+        android:label="PatchCam"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.PatchCam"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Lets PatchCam hand a patch FILE to iQOO Office Kit's file transfer. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+</manifest>
